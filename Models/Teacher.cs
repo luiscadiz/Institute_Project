@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 
+
 namespace  Institute_Project.Models
 {    
-    public class Student
+    public class Teacher
     {
         public Guid Id {get; set;}
         public string Name {get ;set;}
@@ -12,9 +13,10 @@ namespace  Institute_Project.Models
         public DateTime BirthDate {get; set;}
         public string Address {get; set;}
         public string Phone {get; set;}
-        public int EnrollmentNumber {get; set;}
         public string Email {get; set;}
-        public List<Course> CourseStudent {get; set;}
+        public List<Course> Courses {get; set;}
     }
 }
+
+
 

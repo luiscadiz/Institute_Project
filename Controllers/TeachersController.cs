@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Institute_Project.Controllers
 {
-    public class TeacherController : Controller
+    public class TeachersController : Controller
     {
-        public TeacherController()
+        public TeachersController()
         {
         }
 

@@ -4,14 +4,16 @@ using Institute_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Institute_Project.Migrations
 {
     [DbContext(typeof(InstituteContext))]
-    partial class InstituteContextModelSnapshot : ModelSnapshot
+    [Migration("20210211151249_AddInscription")]
+    partial class AddInscription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,45 +21,9 @@ namespace Institute_Project.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Institute_Project.Models.Course", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Subject")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("Institute_Project.Models.Inscription", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CourseID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("StudentID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CourseID");
-
-                    b.HasIndex("StudentID");
-
-                    b.ToTable("Inscriptions");
-                });
-
             modelBuilder.Entity("Institute_Project.Models.Student", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -87,14 +53,14 @@ namespace Institute_Project.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Institute_Project.Models.Teacher", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -125,29 +91,9 @@ namespace Institute_Project.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Teachers");
-                });
-
-            modelBuilder.Entity("Institute_Project.Models.Inscription", b =>
-                {
-                    b.HasOne("Institute_Project.Models.Course", "Course")
-                        .WithMany("Teacher")
-                        .HasForeignKey("CourseID");
-
-                    b.HasOne("Institute_Project.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentID");
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("Institute_Project.Models.Course", b =>
-                {
-                    b.Navigation("Teacher");
                 });
 #pragma warning restore 612, 618
         }

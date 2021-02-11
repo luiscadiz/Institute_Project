@@ -4,14 +4,16 @@ using Institute_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Institute_Project.Migrations
 {
     [DbContext(typeof(InstituteContext))]
-    partial class InstituteContextModelSnapshot : ModelSnapshot
+    [Migration("20210211155634_ChangeParameters")]
+    partial class ChangeParameters
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,11 +27,16 @@ namespace Institute_Project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Subject")
+                    b.Property<string>("NameSubject")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<Guid?>("TeacherID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("TeacherID");
 
                     b.ToTable("Courses");
                 });
@@ -130,10 +137,19 @@ namespace Institute_Project.Migrations
                     b.ToTable("Teachers");
                 });
 
+            modelBuilder.Entity("Institute_Project.Models.Course", b =>
+                {
+                    b.HasOne("Institute_Project.Models.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherID");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("Institute_Project.Models.Inscription", b =>
                 {
                     b.HasOne("Institute_Project.Models.Course", "Course")
-                        .WithMany("Teacher")
+                        .WithMany()
                         .HasForeignKey("CourseID");
 
                     b.HasOne("Institute_Project.Models.Student", "Student")
@@ -143,11 +159,6 @@ namespace Institute_Project.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("Institute_Project.Models.Course", b =>
-                {
-                    b.Navigation("Teacher");
                 });
 #pragma warning restore 612, 618
         }

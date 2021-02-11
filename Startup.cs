@@ -27,7 +27,7 @@ namespace Institute_Project
         {
 
             services.AddDbContext<InstituteContext>(option => 
-                option.UseSqlServer(Configuration.GetConnectionString("ConnectionStrings")));
+                option.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
             services.AddControllersWithViews();
         }
 

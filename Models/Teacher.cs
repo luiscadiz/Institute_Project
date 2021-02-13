@@ -14,7 +14,6 @@ namespace  Institute_Project.Models
 
         [MaxLength(200)]
         public string Surname {get; set;}
-
         public int Dni {get; set;}
         public DateTime BirthDate {get; set;}
         [MaxLength(200)]
